@@ -1,0 +1,38 @@
+
+{% block title %}File index{% endblock %}
+
+{% block body %}
+    <h1>File index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>IdFile</th>
+                <th>File</th>
+                <th>DateCreation</th>
+                <th>Myfile</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for file in files %}
+            <tr>
+                <td>{{ file.idFile }}</td>
+                <td>{{ file.file }}</td>
+                <td>{{ file.dateCreation ? file.dateCreation|date('Y-m-d') : '' }}</td>
+                <td>{{ file.myfile }}</td>
+                <td>
+                    <a href="{{ path('file_show', {'idFile': file.idFile}) }}">show</a>
+                    <a href="{{ path('file_edit', {'idFile': file.idFile}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('file_new') }}">Create new</a>
+{% endblock %}

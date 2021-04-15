@@ -1,0 +1,14 @@
+
+
+{% block title %}New File{% endblock %}
+
+{% block body %}
+    <h1>Create new File</h1>
+
+    {{ form_start(form) }}
+
+    {{ include('file/_form.html.twig') }}
+
+    <a href="{{ path('file_index') }}">back to list</a>
+    {{ form_end(form) }}
+{% endblock %}
