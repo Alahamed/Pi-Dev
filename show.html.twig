@@ -1,34 +1,38 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}File{% endblock %}
+{% block title %}Events{% endblock %}
 
 {% block body %}
-    <h1>File</h1>
+<section id="main-content">
+    <div class="col-md-4 col-sm-4 mb">
+    <h1>Events</h1>
 
     <table class="table">
         <tbody>
+
             <tr>
-                <th>IdFile</th>
-                <td>{{ file.idFile }}</td>
+                <th>NomEvent</th>
+                <td>{{ event.nomEvent }}</td>
             </tr>
             <tr>
-                <th>File</th>
-                <td>{{ file.file }}</td>
+                <th>DateDeb</th>
+                <td>{{ event.dateDeb ? event.dateDeb|date('Y-m-d') : '' }}</td>
             </tr>
             <tr>
-                <th>DateCreation</th>
-                <td>{{ file.dateCreation ? file.dateCreation|date('Y-m-d') : '' }}</td>
+                <th>DateFin</th>
+                <td>{{ event.dateFin ? event.dateFin|date('Y-m-d') : '' }}</td>
             </tr>
             <tr>
-                <th>Myfile</th>
-                <td>{{ file.myfile }}</td>
+                <th>Nbr_place</th>
+                <td>{{ event.nbrPlace }}</td>
+            </tr>
+            <tr>
+                <th>Nom de categorie</th>
+                <td>{{ event.categorie.nomcategorie }}</td>
             </tr>
         </tbody>
     </table>
-
-    <a href="{{ path('file_index') }}">back to list</a>
-
-    <a href="{{ path('file_edit', {'idFile': file.idFile}) }}">edit</a>
-
-    {{ include('file/_delete_form.html.twig') }}
+        {{ include('events/_delete_form.html.twig') }}
+    </div>
+</section>
 {% endblock %}
