@@ -2,15 +2,19 @@
 
 namespace App\Entity;
 
+use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\MyformationRespository;
+use App\Repository\MyformationRepository;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Form\Extention\Core\Type\FileType;
+
 /**
  * Myformation
  *
  * @ORM\Table(name="myformation")
- * @ORM\Entity(repositoryClass=MyformationRespository::class)
+ * @ORM\Entity(repositoryClass=MyformationRepository::class)
+ *
  */
 class Myformation
 {
@@ -25,37 +29,28 @@ class Myformation
 
     /**
      * @var string
-     * @Assert\NotBlank
+     *@Assert\Length (
+     * min="7",
+     * minMessage="doit contenir au moins {{limit}} caractères"
+     * )
      * @ORM\Column(name="libelle", type="string", length=100, nullable=false)
      */
     private $libelle;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     /**
      * @var string
-     * @Assert\NotBlank
+     *
      * @ORM\Column(name="description", type="string", length=100, nullable=false)
+     * @Assert\NotBlank (message="doit etre n'est pas vide, veuilllez remplir ce champ")
      */
     private $description;
 
     /**
-     * @var string
+     * @var DateTime
      *
-     * @ORM\Column(name="date", type="string", length=50, nullable=false)
+     * @ORM\Column(name="date_creation", type="date", nullable=false)
      */
-    private $date;
+    private $dateCreation;
 
     /**
      * @var string
@@ -65,10 +60,22 @@ class Myformation
     private $type;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(name="image", type="string", length=255, nullable=false)
      * @Assert\NotBlank(message="Upload your image")
+     * @Assert\File(mimeTypes={ "image/png", "image/jpeg" })
      */
     private $image;
+
+    /**
+     * @ORM\OneToMany(targetEntity=File::class, mappedBy="myformation" ,cascade={"persist"})
+     */
+    private $brochureFilename;
+
+    public function __construct()
+    {
+        $this->brochureFilename = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -78,22 +85,6 @@ class Myformation
     public function getLibelle(): ?string
     {
         return $this->libelle;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getImage()
-    {
-        return $this->image;
-    }
-
-    /**
-     * @param mixed $image
-     */
-    public function setImage($image): void
-    {
-        $this->image = $image;
     }
 
     public function setLibelle(string $libelle): self
@@ -115,17 +106,23 @@ class Myformation
         return $this;
     }
 
-    public function getDate(): ?string
+    /**
+     * @return DateTime
+     */
+    public function getDateCreation(): DateTime
     {
-        return $this->date;
+        return $this->dateCreation;
     }
 
-    public function setDate(string $date): self
+    /**
+     * @param DateTime $dateCreation
+     */
+    public function setDateCreation(DateTime $dateCreation): void
     {
-        $this->date = $date;
-
-        return $this;
+        $this->dateCreation = $dateCreation;
     }
+
+
 
     public function getType(): ?string
     {
@@ -138,6 +135,52 @@ class Myformation
 
         return $this;
     }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|File[]
+     */
+    public function getBrochureFilename(): Collection
+    {
+        return $this->brochureFilename;
+    }
+
+    public function addBrochureFilename(File $brochureFilename): self
+    {
+        if (!$this->brochureFilename->contains($brochureFilename)) {
+            $this->brochureFilename[] = $brochureFilename;
+            $brochureFilename->setMyformation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBrochureFilename(File $brochureFilename): self
+    {
+        if ($this->brochureFilename->removeElement($brochureFilename)) {
+            // set the owning side to null (unless already changed)
+            if ($brochureFilename->getMyformation() === $this) {
+                $brochureFilename->setMyformation(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+
+
 
 
 
