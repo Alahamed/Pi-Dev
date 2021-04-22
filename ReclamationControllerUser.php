@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use Knp\Component\Pager\PaginatorInterface;
+use MercurySeries\FlashyBundle\FlashyNotifier;
 use App\Entity\Reclamation;
 use App\Form\ReclamationType;
 use App\Repository\ReclamationRepository;
@@ -11,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints as Assert;
 
+
 /**
  * @Route("/reclamation/controller/user")
  */
@@ -19,15 +22,25 @@ class ReclamationControllerUser extends AbstractController
     /**
      * @Route("/", name="reclamation_controller_user_index",methods={"GET"})
      */
-    public function index(ReclamationRepository $reclamationRepository): Response
+    public function index(ReclamationRepository $reclamationRepository,Request $request, PaginatorInterface $paginator):Response
     {
+        $donnees = $this->getDoctrine()->getRepository(Reclamation::class)->findAll();
+
+        $reclamations = $paginator->paginate(
+            $donnees, // Requête contenant les données à paginer (reclamations)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            4 // Nombre de résultats par page
+        );
+
         return $this->render('reclamation_controller_user/index.html.twig', [
-            'reclamations' => $reclamationRepository->findAll(),        ]);
+            'reclamations' => $reclamations,
+        ]);
     }
 
-    /**
 
-     * @Route("/newUser", name="reclamation_new_User", methods={"GET","POST"})
+    /**
+ * @Route("/newUser", name="reclamation_new_User", methods={"GET","POST"})
+
      */
     public function new(Request $request)
     {
@@ -46,9 +59,11 @@ class ReclamationControllerUser extends AbstractController
 
             $reclamation->setScreenshot($filename);
             $reclamation->setStatut("en attente");
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($reclamation);
             $em->flush();
+            $this->addFlash('info', 'réclamation ajoutée avec succés');
 
             return $this->redirectToRoute('reclamation_controller_user_index');
         }
@@ -80,27 +95,6 @@ class ReclamationControllerUser extends AbstractController
     }
 
     /**
-     * @Route("/triId", name="triId")
-     */
-
-    public function TriId(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $query = $em->createQuery(
-            'SELECT r FROM App\Entity\Reclamation r ORDER BY Rec.date_creation'
-        );
-
-
-        $rep = $query->getResult();
-
-        return $this->render('Reclamation_controller_user/show.html.twig',
-            array('Reclamation' => $rep));
-
-    }
-
-
-    /**
      * @Route("/{idReclamation}/edit", name="reclamation_edit_User", methods={"GET","POST"})
      */
     public function edit(Request $request, Reclamation $reclamation): Response
@@ -120,6 +114,7 @@ class ReclamationControllerUser extends AbstractController
 
             $reclamation->setScreenshot($filename);
             $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('info', 'réclamation modifée avec succés');
 
             return $this->redirectToRoute('reclamation_controller_user_index');
         }
@@ -133,14 +128,14 @@ class ReclamationControllerUser extends AbstractController
     /**
      * @Route("/Supp/{idReclamation}", name="reclamation_delete_User")
      */
-    public function delete($idReclamation, ReclamationRepository $repository)
+    public function delete(FlashyNotifier $flashy ,$idReclamation, ReclamationRepository $repository)
     {
         $reclamation=$repository->find($idReclamation);
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->remove($reclamation);
         $entityManager->flush();
 
-
+        $this->addFlash('info', 'réclamation supprimée avec succés');
         return $this->redirectToRoute('reclamation_controller_user_index');
     }
 

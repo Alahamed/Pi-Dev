@@ -1,15 +1,21 @@
-<?php
+<?php /** @noinspection PhpUndefinedNamespaceInspection */
+
+/** @noinspection PhpUndefinedClassInspection */
 
 namespace App\Form;
 
 use App\Entity\Reclamation;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceList;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Captcha\Bundle\CaptchaBundle\Form\Type\CaptchaType;
+use Captcha\Bundle\CaptchaBundle\Validator\Constraints\ValidCaptcha;
+
 
 class ReclamationType extends AbstractType
 {
@@ -19,30 +25,40 @@ class ReclamationType extends AbstractType
             ->add('type', ChoiceType::class,[
                 'choices'=> array(
                     'Contenu'=>'Contenu',
-                    'Service technique'=>'Service technique',
+                    'Service technique'=>'ServiceTechnique',
 
                 )
             ])
 
-            ->add('text', TextType::class,[
+            ->add('text', TextareaType::class,[
                             'label'=>'Description',
                 'attr'=>[
-        'placeholder'=>'Description'
+        'placeholder'=>'Description',
     ]
             ])
 
             ->add('screenshot', FileType::class, [
                 'label'=>'Image',
-                'mapped'=> false
+                'mapped'=> false,
+                'required' => false
 
             ])
 
             ->add('object', TextType::class,[
                 'label'=>'sujet',
                 'attr'=>[
-                    'placeholder'=>'sujet'
+                    'placeholder'=>'sujet',
                 ]
             ])
+
+            ->add('captchaCode', CaptchaType::class, array(
+                'captchaConfig' => 'ExampleCaptchaUserRegistration',
+                'constraints' => [
+                    new ValidCaptcha([
+                        'message' => 'Invalid captcha, please try again',
+                    ]),
+                ],
+            ))
         ;
     }
 
