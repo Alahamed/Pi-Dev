@@ -10,10 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\CategorieRespository;
-
-
-
-
+use Knp\Component\Pager\PaginatorInterface;
 /**
  * @Route("/categorie")
  */
@@ -22,11 +19,22 @@ class CategorieController extends AbstractController
     /**
      * @Route("/", name="categorie_index", methods={"GET"})
      */
-    public function index(CategorieRespository $categorieRespository): Response
+
+    public function index(CategorieRespository  $categorieRepository,Request $request, PaginatorInterface $paginator):Response
     {
+        $donnees = $this->getDoctrine()->getRepository(Categorie::class)->findAll();
+
+        $categories = $paginator->paginate(
+            $donnees, // Requête contenant les données à paginer (ici nos article
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            4 // Nombre de résultats par page
+        );
+
         return $this->render('categorie/index.html.twig', [
-            'categories' => $categorieRespository->findAll(),
+
+            'categories' => $categories,
         ]);
+
     }
 
     /**

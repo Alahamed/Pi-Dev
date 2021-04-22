@@ -5,6 +5,8 @@ namespace App\Form;
 use App\Entity\Events;
 use App\Entity\Categorie;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -23,6 +25,12 @@ class EventsType extends AbstractType
                 'class'=>Categorie::class,
                 'choice_label'=>'nomcategorie'
             ])
+            ->add('image', FileType::class, [
+                'label'=>'Image',
+                'mapped'=> false
+
+            ])
+
         ;
     }
 

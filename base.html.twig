@@ -76,7 +76,7 @@
         </div>
         <!--logo start-->
         <a href="index.html" class="logo"><b>Help<span>DESK</span>
-                <img src="@img/logo.jpg"  width="80">
+                <img src="img/logo.jpg"  width="80">
             </b></a>
 
         <!--logo end-->
@@ -286,17 +286,15 @@
                         <span>Dashboard</span>
                     </a>
                 </li>
-
-
                 <li class="sub-menu">
-                    <a href="javascript:;">
+                    <a class="active" href="base.html.twig">
                         <i class="fa fa-desktop"></i>
                         <span>Gestion des Utilisateurs</span>
                     </a>
                 <li class="sub-menu">
                     <a href="javascript:;">
                         <i class="fa fa-desktop"></i>
-                        <span><a href="{{ path('myformation_index')}}">Gestion des Formations</a></span>
+                        <span>Gestion des Formations</span>
                     </a>
                     <ul class="sub">
                         <li><a href="general.html">General</a></li>
@@ -306,115 +304,50 @@
                     </ul>
                 </li>
                 <li class="sub-menu">
-                    <a href="javascript:;">
+                    <a  href="{{ path('events_index')}}">
                         <i class="fa fa-cogs"></i>
                         <span>Gestion des Evenements</span>
                     </a>
-                    <ul class="sub">
-                        <li><a href="grids.html">Grids</a></li>
-                        <li><a href="calendar.html">Calendar</a></li>
-                        <li><a href="gallery.html">Gallery</a></li>
-                        <li><a href="todo_list.html">Todo List</a></li>
-                        <li><a href="dropzone.html">Dropzone File Upload</a></li>
-                        <li><a href="inline_editor.html">Inline Editor</a></li>
-                        <li><a href="file_upload.html">Multiple File Upload</a></li>
-                    </ul>
-                </li>
                 <li class="sub-menu">
-                    <a href="javascript:;">
-                        <i class="fa fa-book"></i>
-                        <span>Gestion des Reclamations</span>
-                    </a>
-                    <ul class="sub">s
-                        <li><a href="blank.html">Blank Page</a></li>
-                        <li><a href="login.html">Login</a></li>
-                        <li><a href="lock_screen.html">Lock Screen</a></li>
-                        <li><a href="profile.html">Profile</a></li>
-                        <li><a href="invoice.html">Invoice</a></li>
-                        <li><a href="pricing_table.html">Pricing Table</a></li>
-                        <li><a href="faq.html">FAQ</a></li>
-                        <li><a href="404.html">404 Error</a></li>
-                        <li><a href="500.html">500 Error</a></li>
-                    </ul>
-                </li>
-                <li class="sub-menu">
-                    <a href="javascript:;">
-
-                        <span>Gestion des Catégories</span>
-
+                    <a  href="{{ path('participation_index')}}">
+                        <i class="fa fa-cogs"></i>
+                        <span>Participation</span>
                     </a>
                 <li class="sub-menu">
                     <a href="javascript:;">
-                        <i class="fa fa-tasks"></i>
+                        <i class="fa fa-cogs"></i>
+                        <span>Gestion des Réclamations</span>
+                    </a>
+                <li class="sub-menu">
+                    <a  href="{{ path('categorie_index')}}">
+                        <i class="fa fa-cogs"></i>
+                        <span>Gestion des Categories</span>
+                    </a>
+
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-cogs"></i>
                         <span>Gestion des Evaluations</span>
                     </a>
                 <li class="sub-menu">
                     <a href="javascript:;">
-                        <i class="fa fa-tasks"></i>
-                        <span>Gestions des Messages</span>
+                        <i class="fa fa-cogs"></i>
+                        <span>Gestion des Messages</span>
                     </a>
-                    <ul class="sub">
-                        <li><a href="form_component.html">Form Components</a></li>
-                        <li><a href="advanced_form_components.html">Advanced Components</a></li>
-                        <li><a href="form_validation.html">Form Validation</a></li>
-                        <li><a href="contactform.html">Contact Form</a></li>
-                    </ul>
+
                 </li>
-                <li class="sub-menu">
-                    <a href="javascript:;">
-                        <i class="fa fa-th"></i>
-                        <span>Data Tables</span>
-                    </a>
-                    <ul class="sub">
-                        <li><a href="basic_table.html">Basic Table</a></li>
-                        <li><a href="responsive_table.html">Responsive Table</a></li>
-                        <li><a href="advanced_table.html">Advanced Table</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="inbox.html">
-                        <i class="fa fa-envelope"></i>
-                        <span>Mail </span>
-                        <span class="label label-theme pull-right mail-info">2</span>
-                    </a>
-                </li>
-                <li class="sub-menu">
-                    <a href="javascript:;">
-                        <i class=" fa fa-bar-chart-o"></i>
-                        <span>Charts</span>
-                    </a>
-                    <ul class="sub">
-                        <li><a href="morris.html">Morris</a></li>
-                        <li><a href="chartjs.html">Chartjs</a></li>
-                        <li><a href="flot_chart.html">Flot Charts</a></li>
-                        <li><a href="xchart.html">xChart</a></li>
-                    </ul>
-                </li>
-                <li class="sub-menu">
-                    <a href="javascript:;">
-                        <i class="fa fa-comments-o"></i>
-                        <span>Chat Room</span>
-                    </a>
-                    <ul class="sub">
-                        <li><a href="lobby.html">Lobby</a></li>
-                        <li><a href="chat_room.html"> Chat Room</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="google_maps.html">
-                        <i class="fa fa-map-marker"></i>
-                        <span>Google Maps </span>
-                    </a>
-                </li>
-            </ul>
+
             <!-- sidebar menu end-->
+            </ul>
         </div>
     </aside>
 {% endblock %}
-<div class="container" style="margin-left: 160px; padding-left: 50px; padding-top: 100px"  >
-{% block content %}
-{% endblock content %}
-</div>
+
+{% block container %}
+
+{% endblock %}
+
+</body>
 {% block footer%}
     <footer class="site-footer">
         <div class="text-center">
@@ -430,12 +363,7 @@
                 -->
                 Created with HelpDesk template by <a href="https://templatemag.com/">TemplateMag</a>
             </div>
-            <a href="index.html#" class="go-top">
-                <i class="fa fa-angle-up"></i>
-            </a>
+            <a href="index.html#" class="dropdown"><i class="bx bx-up-arrow-alt"></i></a>
         </div>
     </footer>
 {% endblock %}
-
-</body>
-</html>
