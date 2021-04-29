@@ -1,14 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Quiz{% endblock %}
+
+{% block container %}
+<section id="main-content">
+  <div class="content" style="margin: fill" >
+    <h1>Create new Quiz</h1>
+   <table>
+       <thead></thead>
+       <tbody>
+       <tr>
 
 
-{% block title %}New File{% endblock %}
+    {{ include('quiz/_form.html.twig') }}
+       </tr>
+       <tr>
 
-{% block body %}
-    <h1>Create new File</h1>
-
-    {{ form_start(form) }}
-
-    {{ include('file/_form.html.twig') }}
-
-    <a href="{{ path('file_index') }}">back to list</a>
-    {{ form_end(form) }}
+    <a href="{{ path('quiz_index') }}">back to list</a>
+       </tr>
+       </tbody>
+   </table>
+  </div>
+</section>>
 {% endblock %}
