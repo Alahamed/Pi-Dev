@@ -1,94 +1,15 @@
-
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit File{% endblock %}
+{% block title %}Edit Quiz{% endblock %}
 
-{% block body %}
-    <h1>Edit File</h1>
+{% block container %}
+ <div class="container" >
+    <h1>Edit Quiz</h1>
 
+    {{ include('quiz/_form.html.twig', {'button_label': 'Update'}) }}
 
+    <a href="{{ path('quiz_index') }}">back to list</a>
+
+    {{ include('quiz/_delete_form.html.twig') }}
+ </div>
 {% endblock %}
-
-
-
-{% block content %}
-
-    <div class="container">
-        <div class="au-card recent-report">
-            <div class="au-card-inner">
-                <section class="dashboard-counts section-padding">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <h3 class="breadcrumb">
-                                    <i class="fa fa-plus-square"></i>  Ajouter une fichier
-                                </h3>
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        {{ form_start(form, {'method': 'post',  'attr': {'class': 'myformation_edit'}}) }}
-                                        <div class="form-group">
-                                            <label>id de formation : </label>
-                                            {{ form_widget(form.id, {'attr': {'class':'form-control ', 'placeholder': '...','required' : 'true'}}) }}
-
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Extension : </label>
-                                            {{ form_widget(form.file, {'attr': {'class':'form-control ', 'placeholder': '...','required' : 'true'}}) }}
-
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Date Création : </label>
-                                            {{ form_widget(form.dateCreation , {'attr': {'class':'form-control ', 'placeholder': '...','required' : 'true'}}) }}
-
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Myfile : </label>
-                                            {{ form_widget(form.myfile , {'attr': {'class':'form-control ', 'placeholder': '...','required' : 'true'}}) }}
-
-                                        </div>
-
-
-
-
-
-
-
-
-
-                                        <button class="btn btn-primary float-right"  type="submit">Ajouter</button>
-                                        <br/><br/>
-                                        {{ form_end(form) }}
-                                        {{ include('file/_form.html.twig', {'button_label': 'Update'}) }}
-
-                                        <a href="{{ path('file_index') }}">back to list</a>
-
-                                        {{ include('file/_delete_form.html.twig') }}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Ajouter une nouvelle Categorie</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-
-
-
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <br/>
-
-{% endblock content %}

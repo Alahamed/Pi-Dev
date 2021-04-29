@@ -1,0 +1,1 @@
+"C:\xampp\php\php.exe" -f "C:\Users\nader\Desktop\New\FT\quickstart.php"

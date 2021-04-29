@@ -1,38 +1,52 @@
+{% extends 'base.html.twig' %}
+{% block container %}
+    <section id="main-content">
+        <section class="wrapper">
+            <div class="row">
+                <div class="container">
+                    <h1>Quiz index</h1>
 
-{% block title %}File index{% endblock %}
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>IdQuiz</th>
+                            <th>Categories</th>
+                            <th>Quiz</th>
 
-{% block body %}
-    <h1>File index</h1>
+                            <th>Duree</th>
+                            <th>DateCreation</th>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>IdFile</th>
-                <th>File</th>
-                <th>DateCreation</th>
-                <th>Myfile</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for file in files %}
-            <tr>
-                <td>{{ file.idFile }}</td>
-                <td>{{ file.file }}</td>
-                <td>{{ file.dateCreation ? file.dateCreation|date('Y-m-d') : '' }}</td>
-                <td>{{ file.myfile }}</td>
-                <td>
-                    <a href="{{ path('file_show', {'idFile': file.idFile}) }}">show</a>
-                    <a href="{{ path('file_edit', {'idFile': file.idFile}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for quiz in quizzes %}
+                            <tr>
+                                <td>{{ quiz.idQuiz }}</td>
+                                <td>{{ quiz.categories }}</td>
+                                <td>{{ quiz.quiz }}</td>
 
-    <a href="{{ path('file_new') }}">Create new</a>
+                                <td>{{ quiz.duree }}</td>
+                                <td>{{ quiz.dateCreation ? quiz.dateCreation|date('Y-m-d') : '' }}</td>
+                                <td>
+
+                                    <a class="fa fa-plus"  href="{{ path('quiz_edit1', {'idQuiz': quiz.idQuiz}) }}"></a>
+                                    <a class="fa fa-file" href="{{ (quiz.Quiz) }}"></a>
+
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="7">no records found</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                    <a  class="btn btn-primary" href="{{ path('quiz_new') }}">Create Quiz</a>
+                </div>
+
+            </div>
+
+        </section>
+    </section>
 {% endblock %}
